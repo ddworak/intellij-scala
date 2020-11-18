@@ -19,10 +19,12 @@ import org.jetbrains.plugins.scala.lang.parser.parsing.types.{AnnotType, SimpleT
 object Constructor extends ParsingRule {
 
   override def apply()(implicit builder: ScalaPsiBuilder): Boolean = parse(builder, isAnnotation = false)
-  
+
   def parse(builder: ScalaPsiBuilder, isAnnotation: Boolean): Boolean = {
     val constrMarker = builder.mark
     val latestDoneMarker = builder.getLatestDoneMarker
+    var nonEmptyConstructorInvocation = false
+
     val annotationAllowed = latestDoneMarker == null ||
       (latestDoneMarker.getTokenType != ScalaElementType.TYPE_GENERIC_CALL &&
         latestDoneMarker.getTokenType != ScalaElementType.MODIFIERS &&
@@ -33,15 +35,19 @@ object Constructor extends ParsingRule {
       constrMarker.drop()
       return false
     }
-    
+
     if (builder.getTokenType == ScalaTokenTypes.tLPARENTHESIS) {
+      nonEmptyConstructorInvocation = true
       if (!builder.newlineBeforeCurrentToken)
         ArgumentExprs parse builder
       while (builder.getTokenType == ScalaTokenTypes.tLPARENTHESIS && (!isAnnotation || annotationAllowed) && !builder.newlineBeforeCurrentToken) {
         ArgumentExprs parse builder
       }
     }
-    constrMarker.done(ScalaElementType.CONSTRUCTOR)
+
+    if (nonEmptyConstructorInvocation) constrMarker.done(ScalaElementType.CONSTRUCTOR)
+    else                               constrMarker.drop()
+
     true
   }
 }

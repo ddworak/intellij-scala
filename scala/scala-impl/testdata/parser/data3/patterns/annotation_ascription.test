@@ -29,10 +29,9 @@ ScalaFile
       Annotation
         PsiElement(@)('@')
         AnnotationExpression
-          ConstructorInvocation
-            SimpleType: unchecked
-              CodeReferenceElement: unchecked
-                PsiElement(identifier)('unchecked')
+          SimpleType: unchecked
+            CodeReferenceElement: unchecked
+              PsiElement(identifier)('unchecked')
     PsiWhiteSpace(' ')
     PsiElement(=)('=')
     PsiWhiteSpace(' ')

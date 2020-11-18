@@ -8,7 +8,7 @@ import org.jetbrains.plugins.scala.lang.parser.parsing.base.{Ids, Modifier}
 import org.jetbrains.plugins.scala.lang.parser.parsing.builder.ScalaPsiBuilder
 import org.jetbrains.plugins.scala.lang.parser.parsing.expressions.Annotations
 import org.jetbrains.plugins.scala.lang.parser.parsing.params.EnumCaseConstr
-import org.jetbrains.plugins.scala.lang.parser.parsing.top.ConstrApps
+import org.jetbrains.plugins.scala.lang.parser.parsing.top.ClassParents
 
 /**
  * [[EnumCase]] ::= 'case' ( id [[EnumCaseConstr]] [ 'extends' [[ConstrApps]] ] | [[Ids]] )
@@ -82,7 +82,7 @@ object EnumCase extends ParsingRule {
     builder.getTokenType match {
       case `kEXTENDS` =>
         builder.advanceLexer()
-        ConstrApps()
+        ClassParents()
       case _ =>
     }
 
