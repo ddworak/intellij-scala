@@ -81,6 +81,7 @@ object Common {
     val typecheckerTests: String = cat("TypecheckerTests")
     val testingSupportTests: String = cat("TestingSupportTests")
     val worksheetEvaluationTests: String = cat("WorksheetEvaluationTests")
+    val myTests: String = cat("MyTests")
     val flakyTests: String = cat("FlakyTests")
   }
 
