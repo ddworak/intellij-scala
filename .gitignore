@@ -9,6 +9,7 @@
 .idea/.name
 .idea/*.xml
 !.idea/vcs.xml
+!.idea/compiler.xml
 !.idea/uiDesigner.xml
 /*.bat
 *.class
